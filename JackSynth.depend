@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1405661547 source:/home/dagal/dev/cpp/jack/tutoriels/JackSynth/JackSynth.cpp
+	<jack/jack.h>
+	<jack/midiport.h>
+	<iostream>
+	<unistd.h>
+	<math.h>
+	<list>
+	"SyntheSound.hpp"
+
+1405680105 /home/dagal/dev/cpp/jack/tutoriels/JackSynth/SyntheSound.hpp
+	<jack/jack.h>
+	<jack/midiport.h>
+
+1405680089 source:/home/dagal/dev/cpp/jack/tutoriels/JackSynth/SyntheSound.cpp
+	"SyntheSound.hpp"
+

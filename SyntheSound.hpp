@@ -21,6 +21,8 @@ public:
 private:
   jack_midi_data_t m_note;
   jack_midi_data_t m_velocite;
+
+  jack_midi_data_t m_volume;
   
   jack_default_audio_sample_t m_angle;
   
@@ -33,6 +35,8 @@ public:
   jack_midi_data_t note() const;
   jack_midi_data_t velocite() const;
   void setVelocite(jack_midi_data_t velocite);
+  jack_midi_data_t volume() const;
+  void setVolume(jack_midi_data_t volume);
   
   // Méthodes
   jack_default_audio_sample_t getAngle();
