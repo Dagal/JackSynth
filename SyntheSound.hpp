@@ -15,35 +15,41 @@ class SyntheSound
 
   // Variables statiques
 public:
-  static jack_default_audio_sample_t deltaAngles[];
+    // Le tableau des différences d'angle en fonction de la note
+  static float deltaAngles[];
+  // La variation de la fréquence (pitch bend)
+  static unsigned int pitchbend;
+  // Le nombre de demi ton utilisé par le pitch bend
+  static unsigned char pitchbendsemitone;
 
   // Variables
 private:
   bool m_sonFini;
   bool m_debutFin;
-  jack_midi_data_t m_note;
-  jack_midi_data_t m_velocite;
+  unsigned char m_note;
+  unsigned char m_velocite;
 
-  jack_midi_data_t m_volume;
-  jack_midi_data_t m_volumeChange;
+  unsigned char m_volume;
+  unsigned char m_volumeChange;
 
-  jack_default_audio_sample_t m_angle;
-  jack_default_audio_sample_t m_baseSound;
+  float m_angle;
+  float m_baseSound;
 
   // Constructeurs/Destructeur
 public:
-  SyntheSound(jack_midi_data_t note, jack_midi_data_t velocite = 100.0);
+  SyntheSound(unsigned char note, unsigned char velocite = 100.0);
   ~SyntheSound();
 
   // Accesseurs
 public:
-  const jack_midi_data_t& getNote() const;
-  const jack_midi_data_t& getVelocite() const;
-  void setVelocite(const jack_midi_data_t& velocite);
+  const unsigned char& getNote() const;
+  const unsigned char& getVelocite() const;
+  void setVelocite(const unsigned char& velocite);
+  static void setPitchBend(const unsigned int& pitch);
 
   // Méthodes
-  const jack_default_audio_sample_t& getAngle();
-  const jack_default_audio_sample_t& getBaseSound();
+  const float& getAngle();
+  const float& getBaseSound();
 
   static void initialise(const jack_nframes_t& sampleRate);
 

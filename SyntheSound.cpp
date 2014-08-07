@@ -6,7 +6,9 @@
 
 using namespace std;
 
-jack_default_audio_sample_t SyntheSound::deltaAngles[128];
+float SyntheSound::deltaAngles[128];
+unsigned int SyntheSound::pitchbend = 8192;
+unsigned char SyntheSound::pitchbendsemitone = 2;
 
 SyntheSound::SyntheSound(jack_midi_data_t note, jack_midi_data_t velocite)
 {
@@ -38,6 +40,11 @@ void SyntheSound::setVelocite(const jack_midi_data_t& velocite)
 {
   m_velocite = velocite;
   m_volumeChange = velocite;
+}
+
+void SyntheSound::setPitchBend(const unsigned int& pitch)
+{
+    SyntheSound::pitchbend = pitch;
 }
 
 /** @brief Teste si le son a terminé de jouer
@@ -72,10 +79,21 @@ void SyntheSound::demandeArret()
   * Calcule et renvoie le nouvel angle
   *
   */
-const jack_default_audio_sample_t& SyntheSound::getAngle()
+const float& SyntheSound::getAngle()
 {
+    // Récupération du delta de l'angle
+    float deltaAngle = deltaAngles[m_note];
+    // Application du pitch bend
+    deltaAngle *= pow(2.0,((pitchbend - 8192.0)
+                            * pitchbendsemitone
+                            / 8192.0
+                            / 12.0
+                          )
+                     );
     // On calcule le nouvel angle
-    m_angle += deltaAngles[m_note];
+    m_angle += deltaAngle;
+    // Détection d'une valeur supérieure à 2PI
+    m_angle = (m_angle >= 2 * M_PI)?m_angle - (2 * M_PI):m_angle;
     // Et on renvoie la nouvelle valeur
     return m_angle;
 }
@@ -84,7 +102,7 @@ const jack_default_audio_sample_t& SyntheSound::getAngle()
   *
   * @todo: document this function
   */
-const jack_default_audio_sample_t& SyntheSound::getBaseSound()
+const float& SyntheSound::getBaseSound()
 {
     // On calcule l'échantillon de base à condition que le son ne soit pas déjà fini
     if (!m_sonFini) m_baseSound = sin(getAngle());

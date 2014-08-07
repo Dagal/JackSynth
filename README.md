@@ -13,6 +13,7 @@ Fonctionnalité:
 - Gestion du volume via le Midi
 - Gestion du pan via le Midi
 - Gestion de la polyphonie.
+- Pitch Bend opérationnel
 
 En cours de traitements:
 ------------------------
@@ -20,7 +21,6 @@ En cours de traitements:
 A faire:
 --------
 
-- Gestion du pitch bend.
 - Ajout de la réverbération.
 - Ajout du chorus.
 
